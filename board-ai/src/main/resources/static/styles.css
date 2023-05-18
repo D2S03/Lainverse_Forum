@@ -60,15 +60,31 @@ main {
 }
 
 .post {
-    width: 300px;
-    height: 300px;
+    width: 200px;
     margin: 20px;
     padding: 10px;
-    background-color: #444444;
+    background-color: #808080;
     float: left;
     border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add a slight box shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
+
+.post .post-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.post p {
+    line-height: 1.5;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
 
 
 
@@ -81,12 +97,10 @@ main {
 .post .post-content {
     margin-left: 10px;
 }
-
 .post .post-image {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
 }
 
 .post p {
