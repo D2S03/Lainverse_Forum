@@ -60,7 +60,8 @@ main {
 }
 
 .post {
-    width: 200px;
+    width: 300px;
+    height: 300px;
     margin: 20px;
     padding: 10px;
     background-color: #444444;
