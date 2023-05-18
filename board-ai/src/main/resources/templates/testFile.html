@@ -13,91 +13,21 @@
     <h1>LainVerse.net</h1>
 </header>
 <main>
-    <section class="post1">
+    <section th:each="post : ${posts}" class="post">
         <header>
-            <span th:text="${posts.getId()}"></span>
-            <span th:text="${#temporals.format(posts.getDateTime(),'yyyy-MM-dd HH:mm:ss')}"></span>
-            <span class="post-author">posts</span>
-        </header>
-        <div class="post-content">
-            <img th:src="${posts.getImageURL()}" alt="Image">
-            <p th:text="${posts.getMessege()}"></p>
-        </div>
-        <footer>
-            <button class="reply-btn">Reply</button>
-        </footer>
-    </section>
-    <section class="post2">
-        <header>
-            <span th:text="${posts.getId()}"></span>
-            <span th:text="${posts.getDateTime()}"></span>
+            <span th:text="${post.getId()}"></span>
+            <span th:text="${post.getDateTime()}"></span>
             <span class="post-author">Author</span>
         </header>
         <div class="post-content">
-            <img th:src="${posts.getImageURL()}" alt="Image">
-            <p th:text="${posts.getMessege()}"></p>
+            <img th:src="${post.getImageURL()}" alt="Image">
+            <p th:text="${post.getMessege()}"></p>
         </div>
         <footer>
             <button class="reply-btn">Reply</button>
         </footer>
     </section>
-    <section class="post3">
-        <header>
-            <span class="post-id">Post ID</span>
-            <span class="post-date">Date</span>
-            <span class="post-author">Author</span>
-        </header>
-        <div class="post-content">
-            <img src="..." alt="image" class="post-image">
-            <p class="post-text">Content</p>
-        </div>
-        <footer>
-            <button class="reply-btn">Reply</button>
-        </footer>
-    </section>
-    <section class="post4">
-        <header>
-            <span class="post-id">Post ID</span>
-            <span class="post-date">Date</span>
-            <span class="post-author">Author</span>
-        </header>
-        <div class="post-content">
-            <img src="..." alt="image" class="post-image">
-            <p class="post-text">Content</p>
-        </div>
-        <footer>
-            <button class="reply-btn">Reply</button>
-        </footer>
-    </section>
-    <section class="post5">
-        <header>
-            <span class="post-id">Post ID</span>
-            <span class="post-date">Date</span>
-            <span class="post-author">Author</span>
-        </header>
-        <div class="post-content">
-            <img src="..." alt="image" class="post-image">
-            <p class="post-text">Content</p>
-        </div>
-        <footer>
-            <button class="reply-btn">Reply</button>
-        </footer>
-    </section>
-    <section class="post6">
-        <header>
-            <span class="post-id">Post ID</span>
-            <span class="post-date">Date</span>
-            <span class="post-author">Author</span>
-        </header>
-        <div class="post-content">
-            <img src="..." alt="image" class="post-image">
-            <p class="post-text">Content</p>
-        </div>
-        <footer>
-            <button class="reply-btn">Reply</button>
-        </footer>
-    </section>
-    <!-- More posts here -->
 </main>
+
 </body>
 </html>

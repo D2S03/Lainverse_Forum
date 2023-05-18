@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
@@ -22,8 +23,8 @@ public class PostController {
 
     @GetMapping()
     public String getAllPosts(Model model){
-        Post post = new Post(1L,"Naruto is bad","Honestly i really do feel like naruto has fallen off","https://win.gg/wp-content/uploads/2022/06/naruto-and-sasuke.jpg",1,LocalDateTime.now());
-        model.addAttribute("posts",post);
+        List<Post> thePostsList = this.postRepository.findAll();
+        model.addAttribute("posts", thePostsList);
 
         return "testFile";
     }
