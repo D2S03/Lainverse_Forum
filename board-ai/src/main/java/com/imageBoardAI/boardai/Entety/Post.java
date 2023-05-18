@@ -1,6 +1,5 @@
 package com.imageBoardAI.boardai.Entety;
 
-import com.imageBoardAI.boardai.Entety.Reply;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,16 +16,16 @@ public class Post {
     @Column(name="image_url")
 
     private String imageURL;
-    @Column(name="reply")
-    private Reply reply;
+    @Column(name="reply_id")
+    private int replyId;
 
     public Post() {}
-    public Post(Long id, String title, String messege, String imageURL, Reply reply) {
+    public Post(Long id, String title, String messege, String imageURL, int replyId) {
         this.id = id;
         this.title = title;
         this.messege = messege;
         this.imageURL = imageURL;
-        this.reply = reply;
+        this.replyId = replyId;
     }
 
 
@@ -57,12 +56,12 @@ public class Post {
         this.imageURL = imageURL;
     }
 
-    public Reply getReplies() {
-        return reply;
+    public int getReplyId() {
+        return replyId;
     }
 
-    public void setReplies(Reply reply) {
-        this.reply = reply;
+    public void setReplyId(int replyId) {
+        this.replyId = replyId;
     }
 
     public void setId(Long id) {
