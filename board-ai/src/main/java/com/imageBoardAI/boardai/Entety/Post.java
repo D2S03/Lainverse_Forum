@@ -2,6 +2,8 @@ package com.imageBoardAI.boardai.Entety;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "post_table")
 public class Post {
@@ -18,14 +20,17 @@ public class Post {
     private String imageURL;
     @Column(name="reply_id")
     private int replyId;
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
 
     public Post() {}
-    public Post(Long id, String title, String messege, String imageURL, int replyId) {
+    public Post(Long id, String title, String messege, String imageURL, int replyId,LocalDateTime dateTime) {
         this.id = id;
         this.title = title;
         this.messege = messege;
         this.imageURL = imageURL;
         this.replyId = replyId;
+        this.dateTime = dateTime;
     }
 
 
@@ -71,4 +76,13 @@ public class Post {
     public Long getId() {
         return id;
     }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
 }
+

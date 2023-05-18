@@ -1,14 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Board</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
 
-</head>
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,18 +10,18 @@
 </head>
 <body>
 <header>
-    <h1>Image Board</h1>
+    <h1>LainVerse.net</h1>
 </header>
 <main>
     <section class="post1">
         <header>
-            <span class="post-id">Post ID</span>
-            <span class="post-date">Date</span>
-            <span class="post-author">Author</span>
+            <span th:text="${posts.getId()}"></span>
+            <span th:text="${#temporals.format(posts.getDateTime(),'yyyy-MM-dd HH:mm:ss')}"></span>
+            <span class="post-author">posts</span>
         </header>
         <div class="post-content">
-            <img src="..." alt="image" class="post-image">
-            <p class="post-text">Content</p>
+            <img th:src="${posts.getImageURL()}" alt="Image">
+            <p th:text="${posts.getMessege()}"></p>
         </div>
         <footer>
             <button class="reply-btn">Reply</button>
@@ -36,13 +29,13 @@
     </section>
     <section class="post2">
         <header>
-            <span class="post-id">Post ID</span>
-            <span class="post-date">Date</span>
+            <span th:text="${posts.getId()}"></span>
+            <span th:text="${posts.getDateTime()}"></span>
             <span class="post-author">Author</span>
         </header>
         <div class="post-content">
-            <img src="..." alt="image" class="post-image">
-            <p class="post-text">Content</p>
+            <img th:src="${posts.getImageURL()}" alt="Image">
+            <p th:text="${posts.getMessege()}"></p>
         </div>
         <footer>
             <button class="reply-btn">Reply</button>
