@@ -10,10 +10,28 @@ body {
 }
 
 header {
-    background-color: #f0f0f0;
+    background-color: #222222;
     padding: 10px;
-    text-align: center;
+    border-bottom: 1px solid #444444;
 }
+
+header h1 {
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+header h1 a:hover {
+    text-decoration: underline;
+}
+
 
 h1 {
     font-size: 24px;
@@ -27,13 +45,13 @@ main {
     flex-wrap: wrap;
     justify-content: flex-start;
 }
-
 .post {
-    background-color: #ffffff;
-    border: 1px solid #999999;
-    margin-bottom: 20px;
+    width: 200px;
+    margin: 20px;
     padding: 10px;
-    display: flex;
+    background-color: #f0f0f0;
+    float: left;
+    border: none; /* Remove the border */
 }
 
 .post header {
