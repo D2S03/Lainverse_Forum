@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thread Page</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
-<body>
 
+<body>
+<header>
+    <h1>LainVerse.net</h1>
+</header>
+
+<main>
+    <section class="thread">
+        <header>
+            <h2>Thread Title</h2>
+            <span>Posted by: Anon</span>
+        </header>
+
+        <div class="post-content">
+            <!-- Display thread content and replies here -->
+        </div>
+    </section>
+</main>
 </body>
+
 </html>

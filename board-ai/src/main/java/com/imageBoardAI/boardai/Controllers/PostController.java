@@ -16,18 +16,17 @@ import java.util.List;
 public class PostController {
 
     PostRepository postRepository;
+
     @Autowired
     public PostController(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
     @GetMapping()
-    public String getAllPosts(Model model){
+    public String getAllPosts(Model model) {
         List<Post> thePostsList = this.postRepository.findAll();
         model.addAttribute("posts", thePostsList);
-
         return "testFile";
     }
-
-
 }
+

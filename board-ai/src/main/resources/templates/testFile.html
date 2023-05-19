@@ -15,8 +15,8 @@
 <main>
     <section th:each="post : ${posts}" class="post">
         <header>
-            <span th:text="${#temporals.format(post.getDateTime(), 'dd MMM yyyy, HH:mm')}+ '/'"></span>
-            <span th:text="'anon-'+${post.getId()}" class="red-text"></span>
+            <span th:text="${#temporals.format(post.getDateTime(), 'dd MMM yyyy, HH:mm')}+ 'ㅤ'"></span>
+            <span th:text="' POST 0'+${post.getId()}" class="red-text"></span>
         </header>
         <div class="post-content">
             <img th:src="${post.getImageURL()}" alt="Image" class="post-image">
