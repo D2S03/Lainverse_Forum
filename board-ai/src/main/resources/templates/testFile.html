@@ -23,7 +23,9 @@
             <p th:text="${post.getMessege()}"></p>
         </div>
         <footer>
-            <button class="reply-btn">Reply</button>
+            <a th:href="@{'/replies/thread/' + ${post.getId()}}">
+                <button class="reply-btn">Reply</button>
+            </a>
         </footer>
     </section>
 </main>
