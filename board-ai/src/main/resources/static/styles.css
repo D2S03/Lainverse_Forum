@@ -22,6 +22,10 @@ header {
     padding: 10px;
     background-color: rgba(68, 68, 68, 0.5); /* Adjust the transparency and color as desired */
 }
+header a {
+    text-decoration: none;
+    color: inherit;
+}
 
 
 
@@ -141,6 +145,7 @@ main {
     max-width: 100%;
     height: auto;
 }
+
 
 .post .post-image {
     max-width: 200px;

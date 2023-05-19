@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<header>
+<header class="transparent-border">
     <a href="/posts">
         <h1>LainVerse.net</h1>
     </a>
@@ -25,9 +25,13 @@
             <div class="post-content">
                 <img th:src="${post.imageURL}" alt="Thread Image" class="post-image small-image">
             </div>
+            <p th:text="${post.messege}"></p>
         </header>
+    </section>
 
-        <div class="post-content">
+
+    <div class="post-content">
+
             <!-- Display thread content and replies here -->
         </div>
 
@@ -38,8 +42,8 @@
     </section>
 
     <section id="reply-section">
-        <h3>Reply to Thread</h3>
-        <span th:text="'ThreadID: ' + ${post.id}"></span>
+        <h3>Replies</h3>
+        <span th:text="ADD-REPLIES-HERE"></span>
     </section>
 
 </main>
