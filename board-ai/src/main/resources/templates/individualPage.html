@@ -25,19 +25,19 @@
             <div class="post-content">
                 <img th:src="${post.imageURL}" alt="Thread Image" class="post-image small-image">
             </div>
-            <p th:text="${post.messege}"></p>
+            <p th:text="${post.messege}" class="post-message"></p>
         </header>
     </section>
 
 
     <div class="post-content">
 
-            <!-- Display thread content and replies here -->
+            <!-- thread content goeshere -->
         </div>
 
-        <div class="reply-button">
-            <a th:href="@{'#reply-section'}" class="button">Reply</a>
-        </div>
+    <div class="reply-button">
+        <a th:href="@{'#reply-section'}" class="button">Reply</a>
+    </div>
 
     </section>
 

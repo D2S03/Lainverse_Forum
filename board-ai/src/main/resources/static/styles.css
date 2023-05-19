@@ -11,16 +11,16 @@ body {
 }
 
 header {
-    background-color: #444444;
+    background-color: #111111;
     padding: 10px;
     border-bottom: 1px solid #222222;
     display: flex;
     align-items: center;
 }
 .transparent-border {
-    border: 1px solid rgba(0, 0, 0, 0.5); /* Adjust the transparency by modifying the last value (0.5) */
-    padding: 10px;
-    background-color: rgba(68, 68, 68, 0.5); /* Adjust the transparency and color as desired */
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    background-color: rgba(68, 68, 68, 0.0);
 }
 header a {
     text-decoration: none;
@@ -74,50 +74,48 @@ main {
     width: 200px;
     margin: 20px;
     padding: 10px;
-    position: relative;
-    background-color: #222222;
+    background-color: transparent;
     float: left;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: none; /* Remove the white outline */
+    align-items: flex-start;
+    text-align: left;
+    border: none;
+    box-shadow: none;
+    position: relative;
 
-    /* Add a slight shadow */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease;
 }
+
+.main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 
 .post:hover {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* Increase the shadow on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 
-.post::before, .post::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: lightgrey;
-}
 
-.post::after {
-    bottom: 0;
-    top: auto;
-}
+
 
 .post .post-image {
     max-width: 200px;
     max-height: 200px;
     object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .normal-image {
     max-width: 40%;
     height: auto;
-    /* Add additional styles for resizing if needed */
 }
 
 .post p {
@@ -145,6 +143,9 @@ main {
     max-width: 100%;
     height: auto;
 }
+.post-message {
+    color: white;
+}
 
 
 .post .post-image {
@@ -165,8 +166,13 @@ main {
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.3s ease;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
-
+.reply-button {
+    text-align: center;
+}
 .post footer .reply-btn:hover {
     transform: scale(1.1);
 }
@@ -192,11 +198,12 @@ main {
 
 }
 .post-image.small-image {
-    width: 400px; /* Adjust the width as needed */
+    width: 400px;
 }
 
 .post-details {
     color: white;
+    background-color: transparent;
 }
 
 .thread {
