@@ -9,8 +9,8 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-<header>
-    <h1>LainVerse.net</h1>
+    <header class="transparent-border">
+        <h1>LainVerse.net</h1>
 </header>
 <main>
     <section th:each="post : ${posts}" class="post">
@@ -23,7 +23,7 @@
             <p th:text="${post.getMessege()}"></p>
         </div>
         <footer>
-            <a th:href="@{'/replies/thread/' + ${post.getId()}}">
+            <a th:href="@{'/posts/thread/' + ${post.getId()}}">
                 <button class="reply-btn">Reply</button>
             </a>
         </footer>

@@ -17,6 +17,12 @@ header {
     display: flex;
     align-items: center;
 }
+.transparent-border {
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Adjust the transparency by modifying the last value (0.5) */
+    padding: 10px;
+    background-color: rgba(68, 68, 68, 0.5); /* Adjust the transparency and color as desired */
+}
+
 
 
 header h1 {
@@ -47,6 +53,7 @@ header .title-icon {
 
 
 h1 {
+    margin: 0;
     font-size: 24px;
 }
 
@@ -70,7 +77,17 @@ main {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    border: none; /* Remove the white outline */
+
+    /* Add a slight shadow */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
 }
+
+.post:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* Increase the shadow on hover */
+}
+
 
 .post::before, .post::after {
     content: "";
@@ -88,10 +105,15 @@ main {
 }
 
 .post .post-image {
-    max-width: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.normal-image {
+    max-width: 40%;
     height: auto;
-    display: block;
-    margin-bottom: 10px;
+    /* Add additional styles for resizing if needed */
 }
 
 .post p {
@@ -114,6 +136,10 @@ main {
     margin-left: 10px;
     color: #ffffff;
 
+}
+.post-content img {
+    max-width: 100%;
+    height: auto;
 }
 
 .post .post-image {
@@ -159,6 +185,21 @@ main {
 .reply-btn:hover {
     background-color: #45a049;
 
+}
+.post-image.small-image {
+    width: 400px; /* Adjust the width as needed */
+}
+
+.post-details {
+    color: white;
+}
+
+.thread {
+    background-color: #000;
+}
+
+.thread h2, .thread span {
+    color: white;
 }
 
 

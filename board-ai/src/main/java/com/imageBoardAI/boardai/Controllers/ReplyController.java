@@ -1,12 +1,11 @@
 package com.imageBoardAI.boardai.Controllers;
 
 import com.imageBoardAI.boardai.DAO.ReplyRepository;
+import com.imageBoardAI.boardai.Entety.Reply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/replies")
@@ -17,11 +16,13 @@ public class ReplyController {
         this.replyRepository = replyRepository;
     }
 
-    @GetMapping("/thread/{id}")
-    public String getThreadPage(@PathVariable("id") int id, Model model) {
+
+@GetMapping()
+    String getAllReplies(Model model,int threadID,int replyID){
+    Reply theReply = replyRepository.getReferenceById(replyID);
+    model.addAttribute("reply",theReply);
+    return "individualPage";
+}
 
 
-
-return "individualPage";
-    }
 }

@@ -15,15 +15,31 @@
 
 <main>
     <section class="thread">
+        <div class="post-details">
+            <h2 th:text="${post.title}"></h2>
+            <span th:text="'ThreadID: ' + ${post.id}"></span>
+        </div>
         <header>
-            <h2>Thread Title</h2>
-            <span>Posted by: Anon</span>
+            <div class="post-content">
+                <img th:src="${post.imageURL}" alt="Thread Image" class="post-image small-image">
+            </div>
         </header>
 
         <div class="post-content">
             <!-- Display thread content and replies here -->
         </div>
+
+        <div class="reply-button">
+            <a th:href="@{'#reply-section'}" class="button">Reply</a>
+        </div>
+
     </section>
+
+    <section id="reply-section">
+        <h3>Reply to Thread</h3>
+        <span th:text="'ThreadID: ' + ${post.id}"></span>
+    </section>
+
 </main>
 </body>
 
