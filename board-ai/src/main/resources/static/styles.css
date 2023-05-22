@@ -30,7 +30,6 @@ header a {
 
 
 header h1 {
-    color: #ffffff;
     font-size: 24px;
     margin: 0;
     padding: 0;
@@ -100,6 +99,9 @@ main {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 }
 
+.post-details .post-id {
+    color: rgb(106, 77, 177);
+}
 
 
 
@@ -209,8 +211,52 @@ main {
     background-color: #000;
 }
 
-.thread h2, .thread span {
-    color: white;
+
+
+.replies-container {
+    margin-top: 20px;
 }
 
+.reply {
+    border: 1px solid #ccc;
+    padding: 30px;
+    margin-bottom: 20px;
+
+}
+.reply-details span {
+    color: rgb(106, 77, 177);
+}
+.post-image.small-image {
+    width: 300px;
+    height: auto;
+}
+
+.post-image.small-image.enlarged {
+    width: auto;
+    max-height: 100vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    cursor: zoom-out;
+}
+
+.reply-image.small-image {
+    width: 200px;
+    height: auto;
+    margin-right: 100px;
+
+}
+
+.reply-image.small-image.enlarged {
+    width: auto;
+    max-height: 50vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    cursor: zoom-out;
+}
 

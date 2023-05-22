@@ -7,12 +7,9 @@ import com.imageBoardAI.boardai.Entety.Reply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/posts")
@@ -34,6 +31,7 @@ public class PostController {
         return "testFile";
     }
 
+
     @GetMapping("/thread/{id}")
     public String getThreadPage(@PathVariable("id") int id, Model model) {
         Post post = postRepository.getReferenceById(id);
@@ -41,9 +39,10 @@ public class PostController {
         model.addAttribute("post", post);
         model.addAttribute("replies", replies);
         return "individualPage";
-
-
     }
+
+
+
 //make the thread name into a button where when you click it chagpt generates a short explaination about the material
     //integrate reverse image searcg
 }

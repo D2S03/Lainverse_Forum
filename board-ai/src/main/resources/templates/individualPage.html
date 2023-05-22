@@ -19,7 +19,7 @@
     <section class="thread">
         <div class="post-details">
             <h2 th:text="${post.title}"></h2>
-            <span th:text="'postid:0' + ${post.id}"></span>
+            <h3 class="post-id" th:text="'postid:0' + ${post.id}"></h3>
         </div>
         <header>
             <div class="post-content">
@@ -29,11 +29,9 @@
         </header>
     </section>
 
-
     <div class="post-content">
-
-            <!-- thread content goeshere -->
-        </div>
+        <!-- thread content goes here -->
+    </div>
 
     <div class="reply-button">
         <a th:href="@{'#reply-section'}" class="button">Reply</a>
@@ -42,21 +40,25 @@
     </section>
 
     <section id="reply-section">
-        <h3>Replies</h3>
-        <div th:each="reply : ${replies}">
-            <div class="reply">
+        <div class="replies-container">
+            <div th:each="reply : ${replies}" class="reply">
                 <div class="reply-details">
                     <span th:text="'replyid:0' + ${reply.id}"></span>
+                    <span th:text="'' + ${reply.dateTime}"></span>
                 </div>
                 <div class="reply-content">
                     <p th:text="${reply.messege}" class="reply-message"></p>
-                    <img th:src="${reply.imageUrl}" alt="Reply Image" class="reply-image small-image">
+                    <img th:if="${reply.imageUrl}" th:src="${reply.imageUrl}" alt="Reply Image" class="reply-image small-image image-thumbnail">
+                    <span th:unless="${reply.imageUrl}"></span>
                 </div>
             </div>
         </div>
     </section>
-
 </main>
+
+<script th:src="@{/js/imageEnlarge.js}"></script>
+
 </body>
 
 </html>
+
