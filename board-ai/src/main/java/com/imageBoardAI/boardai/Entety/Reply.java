@@ -13,7 +13,7 @@ public class Reply {
     @Column(name = "messege")
     private String messege;
     @Column(name = "image_url")
-    private String imageUrl; //make it so that it can be null??
+    private String imageUrl; 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
     @ManyToOne

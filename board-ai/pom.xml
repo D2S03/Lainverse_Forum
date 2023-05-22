@@ -60,35 +60,30 @@
 
 
 
-	<!-- MySQL Connector -->
 	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
 		<version>8.0.32</version>
 	</dependency>
 
-	<!-- H2 Database -->
 	<dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
 		<scope>runtime</scope>
 	</dependency>
 
-	<!-- Jakarta Persistence API -->
 	<dependency>
 		<groupId>jakarta.persistence</groupId>
 		<artifactId>jakarta.persistence-api</artifactId>
 		<version>3.1.0</version>
 	</dependency>
 
-	<!-- Hibernate Core -->
 	<dependency>
 		<groupId>org.hibernate.orm</groupId>
 		<artifactId>hibernate-core</artifactId>
 		<version>6.1.7.Final</version>
 	</dependency>
 
-	<!-- AWS SDK for Java -->
 	<dependency>
 	<groupId>software.amazon.awscdk</groupId>
 	<artifactId>s3-assets</artifactId>
