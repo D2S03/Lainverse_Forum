@@ -16,13 +16,18 @@ public class Reply {
     private String imageUrl; //make it so that it can be null??
     @Column(name = "date_time")
     private LocalDateTime dateTime;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
     public Reply() {}
 
-    public Reply(int id, String messege, String imageUrl, LocalDateTime dateTime) {
+    public Reply(int id, String messege, String imageUrl, LocalDateTime dateTime, Post post) {
         this.id = id;
         this.messege = messege;
         this.imageUrl = imageUrl;
         this.dateTime = dateTime;
+        this.post = post;
     }
 
     public int getId() {
@@ -56,4 +61,5 @@ public class Reply {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
 }

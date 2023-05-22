@@ -3,6 +3,7 @@ package com.imageBoardAI.boardai.Entety;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "post_table")
@@ -22,6 +23,9 @@ public class Post {
     private int replyId;
     @Column(name = "date_time")
     private LocalDateTime dateTime;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<Reply> replies;
 
     public Post() {}
     public Post(Long id, String title, String messege, String imageURL, int replyId,LocalDateTime dateTime) {
@@ -83,6 +87,14 @@ public class Post {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
     }
 }
 

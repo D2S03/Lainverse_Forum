@@ -17,12 +17,7 @@ public class ReplyController {
     }
 
 
-@GetMapping()
-    String getAllReplies(Model model,int threadID,int replyID){
-    Reply theReply = replyRepository.getReferenceById(replyID);
-    model.addAttribute("reply",theReply);
-    return "individualPage";
-}
+
 
 
 }
