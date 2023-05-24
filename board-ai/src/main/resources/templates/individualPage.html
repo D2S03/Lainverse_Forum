@@ -34,7 +34,14 @@
     </div>
 
     <div class="reply-button">
-        <a th:href="@{'#reply-section'}" class="button">Reply</a>
+        <button id="replyBtn" class="button" onclick="toggleReplyForm()">Reply</button>
+        <div id="replyForm">
+            <form action="/posts/createReply" method="POST" enctype="multipart/form-data">
+                <input type="text" name="message" placeholder="Message" required><br>
+                <input type="file" name="image" accept="image/*"><br>
+                <button type="submit" class="button">Submit</button>
+            </form>
+        </div>
     </div>
 
     </section>
@@ -56,7 +63,16 @@
     </section>
 </main>
 
-<script th:src="@{/js/imageEnlarge.js}"></script>
+<script>
+    function toggleReplyForm() {
+        var replyForm = document.getElementById('replyForm');
+        if (replyForm.style.maxHeight === '0px') {
+            replyForm.style.maxHeight = '500px';  // Adjust as necessary
+        } else {
+            replyForm.style.maxHeight = '0px';
+        }
+    }
+</script>
 
 </body>
 

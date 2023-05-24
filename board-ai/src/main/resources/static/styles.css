@@ -70,6 +70,7 @@ main {
 }
 
 .post {
+    position: relative;
     background-color: transparent;
     color: #fff;
     border-radius: 4px;
@@ -87,6 +88,11 @@ main {
     box-shadow: none;
     position: relative;
 
+}
+.reply-button {
+    position: absolute;
+    bottom: 650px;
+    right: 100px;
 }
 
 .main {
@@ -225,8 +231,9 @@ main {
     border: 1px solid #ccc;
     padding: 30px;
     margin-bottom: 20px;
-
+    max-width: 600px;
 }
+
 .reply-details span {
     color: rgb(106, 77, 177);
 }
@@ -277,15 +284,18 @@ main {
 }
 
 .middle-section form {
-    display: flex;
+    margin-top: 20px;  // adjust as necessary
+display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .middle-section textarea {
+    margin-top: 10px;
     margin-bottom: 10px;
     resize: vertical;
 }
+
 
 
 .submit-button {
@@ -310,6 +320,35 @@ main {
     outline: none;
 }
 #threadForm {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+.reply-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button {
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #252225;
+}
+
+.button:focus {
+    outline: none;
+}
+
+#replyForm {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-out;
