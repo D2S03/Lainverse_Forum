@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -8,13 +7,28 @@
     <title>Image Board</title>
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
+
 <body>
-    <header class="transparent-border">
-        <a href="/posts">
-            <h1>LainVerse.net</h1>
-        </a>
+<header class="transparent-border">
+    <a href="/posts">
+        <h1>LainVerse.net</h1>
+    </a>
 </header>
-<main>
+
+<div class="middle-section">
+    <button id="createThreadBtn" class="create-thread-btn" onclick="toggleForm()">Create Thread</button>
+    <div id="threadForm">
+        <form action="/posts/createReply" method="POST" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="Title" required><br>
+            <textarea id="message" name="message" rows="5" cols="40" required></textarea><br>
+            <input type="file" name="image" accept="image/*"><br>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+
+</div>
+
+<main class="main">
     <section th:each="post : ${posts}" class="post">
         <header>
             <span th:text="${#temporals.format(post.getDateTime(), 'dd MMM yyyy, HH:mm')}+ 'ㅤ'"></span>
@@ -32,5 +46,21 @@
     </section>
 </main>
 
+
+
+
+<script th:inline="javascript">
+    function toggleForm() {
+        var threadForm = document.getElementById('threadForm');
+        if (threadForm.style.maxHeight === '0px') {
+            threadForm.style.maxHeight = '500px';  // Adjust as necessary
+        } else {
+            threadForm.style.maxHeight = '0px';
+        }
+    }
+
+</script>
+
 </body>
+
 </html>

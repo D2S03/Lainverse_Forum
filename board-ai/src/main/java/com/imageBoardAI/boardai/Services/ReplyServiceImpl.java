@@ -2,6 +2,7 @@ package com.imageBoardAI.boardai.Services;
 
 import com.imageBoardAI.boardai.DAO.ReplyRepository;
 import com.imageBoardAI.boardai.Entety.Reply;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class ReplyServiceImpl implements ReplyService{
 
 private ReplyRepository replyRepository;
 
-
+@Autowired
 public ReplyServiceImpl (ReplyRepository replyRepository){
     this.replyRepository = replyRepository;
 }
