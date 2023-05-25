@@ -18,10 +18,10 @@
 <div class="middle-section">
     <button id="createThreadBtn" class="create-thread-btn" onclick="toggleForm()">Create Thread</button>
     <div id="threadForm">
-        <form action="/posts/createReply" method="POST" enctype="multipart/form-data">
+        <form action="#" th:action="@{/posts/createThread}" method="POST" enctype="multipart/form-data">
             <input type="text" name="title" placeholder="Title" required><br>
             <textarea id="message" name="message" rows="5" cols="40" required></textarea><br>
-            <input type="file" name="image" accept="image/*"><br>
+            <input type="file" name="file" accept="image/*"><br>
             <button type="submit" class="submit-button">Submit</button>
         </form>
     </div>
@@ -51,9 +51,9 @@
 
 <script th:inline="javascript">
     function toggleForm() {
-        var threadForm = document.getElementById('threadForm');
+        let threadForm = document.getElementById('threadForm');
         if (threadForm.style.maxHeight === '0px') {
-            threadForm.style.maxHeight = '500px';  // Adjust as necessary
+            threadForm.style.maxHeight = '500px';
         } else {
             threadForm.style.maxHeight = '0px';
         }

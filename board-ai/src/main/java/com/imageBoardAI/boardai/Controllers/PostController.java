@@ -1,46 +1,44 @@
 package com.imageBoardAI.boardai.Controllers;
 
 import com.imageBoardAI.boardai.DAO.PostRepository;
-import com.imageBoardAI.boardai.DAO.ReplyRepository;
 import com.imageBoardAI.boardai.Entety.Post;
 import com.imageBoardAI.boardai.Entety.Reply;
-import com.imageBoardAI.boardai.Services.ImageService;
+import com.imageBoardAI.boardai.Services.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.services.s3.model.S3Exception;
 
+import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
 public class PostController {
 
-    PostRepository postRepository;
-    ReplyRepository replyRepository;
-    ImageService imageService;
+    private PostRepository postRepository;
+    private final ImgurService imgurService;
 
     @Autowired
-    public PostController(PostRepository postRepository, ReplyRepository replyRepository, ImageService imageService) {
+    public PostController(PostRepository postRepository, ImgurService imgurService) {
         this.postRepository = postRepository;
-        this.replyRepository = replyRepository;
-        this.imageService = imageService;
+        this.imgurService = imgurService;
     }
-
-
 
 
 
     @GetMapping()
     public String getAllPosts(Model model) {
-        List<Post> thePostsList = this.postRepository.findAll();
+        List<Post> thePostsList = postRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("posts", thePostsList);
         return "testFile";
     }
-
 
     @GetMapping("/thread/{id}")
     public String getThreadPage(@PathVariable("id") int id, Model model) {
@@ -50,50 +48,43 @@ public class PostController {
         model.addAttribute("replies", replies);
         return "individualPage";
     }
-    @PostMapping("/{id}/image")
-    public String uploadImage(@PathVariable("id") int id, @RequestParam("image") MultipartFile imageFile, Model model) {
+
+
+
+    @PostMapping("/createThread")
+    public String uploadImage(@RequestParam("file") MultipartFile file,
+                              @RequestParam("title") String title,
+                              @RequestParam("message") String message) {
+
         try {
-            Post post = postRepository.getReferenceById(id);
-            String imageUrl = imageService.saveImage(imageFile);
+            File imageFile = convertMultipartFileToFile(file);
+            String imageUrl = imgurService.uploadImage(imageFile);
+            Post post = new Post();
             post.setImageURL(imageUrl);
+            post.setTitle(title);
+            post.setMessege(message);
+            post.setDateTime(LocalDateTime.now());
             postRepository.save(post);
-        } catch (IOException | S3Exception e) {
-            // Handle error case
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to upload image and create thread", e);
         }
 
-        return "redirect:/posts/thread/" + id;
+        return "redirect:/posts";
     }
 
 
+    private File convertMultipartFileToFile(MultipartFile file) throws IOException {
+        File convertedFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + file.getOriginalFilename());
+        file.transferTo(convertedFile);
+        return convertedFile;
+    }
 
 
 
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //make the thread name into a button where when you click it chagpt generates a short explaination about the material
-    //integrate reverse image searcg
+    //integrate reverse image search
 
 
