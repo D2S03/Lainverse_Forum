@@ -1,6 +1,7 @@
 package com.imageBoardAI.boardai.Controllers;
 
 import com.imageBoardAI.boardai.DAO.PostRepository;
+import com.imageBoardAI.boardai.DAO.ReplyRepository;
 import com.imageBoardAI.boardai.Entety.Post;
 import com.imageBoardAI.boardai.Entety.Reply;
 import com.imageBoardAI.boardai.Services.ImgurService;
@@ -25,11 +26,15 @@ public class PostController {
     private PostRepository postRepository;
     private final ImgurService imgurService;
 
-    @Autowired
-    public PostController(PostRepository postRepository, ImgurService imgurService) {
+    private ReplyRepository replyRepository;
+@Autowired
+    public PostController(PostRepository postRepository, ImgurService imgurService, ReplyRepository replyRepository) {
         this.postRepository = postRepository;
         this.imgurService = imgurService;
+        this.replyRepository = replyRepository;
     }
+
+
 
 
 
@@ -52,10 +57,9 @@ public class PostController {
 
 
     @PostMapping("/createThread")
-    public String uploadImage(@RequestParam("file") MultipartFile file,
+    public String uploadThread(@RequestParam("file") MultipartFile file,
                               @RequestParam("title") String title,
                               @RequestParam("message") String message) {
-
         try {
             File imageFile = convertMultipartFileToFile(file);
             String imageUrl = imgurService.uploadImage(imageFile);
@@ -68,9 +72,32 @@ public class PostController {
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload image and create thread", e);
         }
-
         return "redirect:/posts";
     }
+    @PostMapping("{id}/CreateReply")
+    public String uploadReply(@PathVariable("id") Integer id,
+                              @RequestParam("message") String message,
+                              @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+
+        Reply reply = new Reply();
+        reply.setMessege(message);
+        reply.setDateTime(LocalDateTime.now());
+        reply.setPost(post);
+
+        if (file != null && !file.isEmpty()) {
+            File imageFile = convertMultipartFileToFile(file);
+            String imageUrl = imgurService.uploadImage(imageFile);
+            reply.setImageUrl(imageUrl);
+        }
+
+        replyRepository.save(reply);
+
+        return "redirect:/posts/thread/" + id;
+    }
+
+
 
 
     private File convertMultipartFileToFile(MultipartFile file) throws IOException {
@@ -84,7 +111,6 @@ public class PostController {
 }
 
 
-//make the thread name into a button where when you click it chagpt generates a short explaination about the material
+//make the thread name into a button where when you click it chatgpt generates a short explanation about the material
     //integrate reverse image search
-
 

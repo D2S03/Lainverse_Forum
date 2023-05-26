@@ -1,13 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thread Page</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
-
 <body>
 <header class="transparent-border">
     <a href="/posts">
@@ -16,57 +11,84 @@
 </header>
 
 <main>
-    <section class="thread">
-        <div class="post-details">
-            <h2 th:text="${post.title}"></h2>
-            <h3 class="post-id" th:text="'postid:0' + ${post.id}"></h3>
-        </div>
-        <header>
+    <div class="thread-container">
+        <section class="thread">
+            <div class="post-details">
+                <h2 th:text="${post.title}"></h2>
+                <h3 class="post-id" th:text="'postid:0' + ${post.id}"></h3>
+            </div>
+            <header>
+                <div class="post-content">
+                    <img th:src="${post.imageURL}" alt="Thread Image" class="post-image small-image">
+                </div>
+                <p th:text="${post.messege}" class="post-message"></p>
+            </header>
             <div class="post-content">
-                <img th:src="${post.imageURL}" alt="Thread Image" class="post-image small-image">
             </div>
-            <p th:text="${post.messege}" class="post-message"></p>
-        </header>
-    </section>
-
-    <div class="post-content">
-        <!-- thread content goes here -->
-    </div>
-
-    <div class="reply-button">
-        <button id="replyBtn" class="button" onclick="toggleReplyForm()">Reply</button>
-        <div id="replyForm">
-            <form action="/posts/createReply" method="POST" enctype="multipart/form-data">
-                <input type="text" name="message" placeholder="Message" required><br>
-                <input type="file" name="image" accept="image/*"><br>
-                <button type="submit" class="button">Submit</button>
-            </form>
-        </div>
-    </div>
-
-    </section>
-
-    <section id="reply-section">
-        <div class="replies-container">
-            <div th:each="reply : ${replies}" class="reply">
-                <div class="reply-details">
-                    <span th:text="'replyid:0' + ${reply.id}"></span>
-                    <span th:text="'' + ${reply.dateTime}"></span>
-                </div>
-                <div class="reply-content">
-                    <p th:text="${reply.messege}" class="reply-message"></p>
-                    <img th:if="${reply.imageUrl}" th:src="${reply.imageUrl}" alt="Reply Image" class="reply-image small-image image-thumbnail">
-                    <span th:unless="${reply.imageUrl}"></span>
+            <div class="reply-button">
+                <button id="replyBtn" class="button" onclick="toggleReplyForm()">Reply</button>
+                <div id="replyForm">
+                    <form action="#" th:action="@{/posts/{id}/CreateReply(id=${post.id})}" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="message" placeholder="Message" required><br>
+                        <input type="file" name="file" accept="image/*"><br>
+                        <button type="submit" class="button">Submit</button>
+                    </form>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section id="reply-section">
+            <div class="replies-container">
+                <div th:each="reply : ${replies}" class="reply">
+                    <div class="reply-details">
+                        <span th:text="'replyid:0' + ${reply.id}"></span>
+                        <span th:text="'' + ${reply.dateTime}"></span>
+                    </div>
+                    <div class="reply-content">
+                        <p th:text="${reply.messege}" class="reply-message"></p>
+                        <img th:if="${reply.imageUrl}" th:src="${reply.imageUrl}" alt="Reply Image" class="reply-image small-image image-thumbnail">
+                        <span th:unless="${reply.imageUrl}"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </main>
 
 <script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('.image-thumbnail');
+
+        images.forEach((image) => {
+            image.addEventListener('click', (event) => {
+                const overlay = document.createElement('div');
+                overlay.classList.add('enlarged-image-overlay');
+
+                const enlargedImage = document.createElement('img');
+                enlargedImage.src = event.target.src;
+                enlargedImage.classList.add('enlarged-image');
+
+                overlay.appendChild(enlargedImage);
+                document.body.appendChild(overlay);
+
+                overlay.addEventListener('click', () => {
+                    overlay.classList.remove('show');
+                    setTimeout(() => {
+                        overlay.remove();
+                    }, 300);
+                });
+
+                setTimeout(() => {
+                    overlay.classList.add('show');
+                }, 10);
+            });
+        });
+    });
+
+
     function toggleReplyForm() {
         let replyForm = document.getElementById('replyForm');
-        if (replyForm.style.maxHeight === '0px') {
+        if (replyForm.style.maxHeight !== '500px') {
             replyForm.style.maxHeight = '500px';
         } else {
             replyForm.style.maxHeight = '0px';
@@ -74,7 +96,7 @@
     }
 </script>
 
+
 </body>
 
 </html>
-
