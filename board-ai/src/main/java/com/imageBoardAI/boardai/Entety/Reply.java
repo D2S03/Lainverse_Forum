@@ -20,14 +20,16 @@ public class Reply {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    private String author;
     public Reply() {}
 
-    public Reply(int id, String messege, String imageUrl, LocalDateTime dateTime, Post post) {
+    public Reply(int id, String messege, String imageUrl, LocalDateTime dateTime, Post post, String author) {
         this.id = id;
         this.messege = messege;
         this.imageUrl = imageUrl;
         this.dateTime = dateTime;
         this.post = post;
+        this.author = author;
     }
 
     public int getId() {
@@ -68,5 +70,13 @@ public class Reply {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

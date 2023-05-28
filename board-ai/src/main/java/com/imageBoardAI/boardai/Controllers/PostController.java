@@ -95,7 +95,17 @@ public class PostController {
             String imageUrl = imgurService.uploadImage(imageFile);
             reply.setImageUrl(imageUrl);
         }
+        if (message.contains("bot")) {
+            reply.setAuthor("bot");
+        } else {
+            reply.setAuthor("user");
+        }
 
+        if (file != null && !file.isEmpty()) {
+            File imageFile = convertMultipartFileToFile(file);
+            String imageUrl = imgurService.uploadImage(imageFile);
+            reply.setImageUrl(imageUrl);
+        }
         replyRepository.save(reply);
 
         return "redirect:/posts/thread/" + id;
@@ -121,7 +131,7 @@ titleAndContext.append("/" + Setpost.getMessege());
 
     String responseMessage = chatgptService.multiChat(messages);
     Reply GPTreply = new Reply();
-
+            GPTreply.setAuthor("bot");
             GPTreply.setPost(Setpost);
             GPTreply.setMessege(responseMessage);
             GPTreply.setDateTime(LocalDateTime.now());

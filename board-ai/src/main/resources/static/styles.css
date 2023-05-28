@@ -428,3 +428,9 @@ display: flex;
     max-height: 100%;
     object-fit: contain;
 }
+
+
+.bot-reply p.reply-message {
+    color: #00ff00;
+    text-shadow: 0 0 01px #00ff00;
+}
