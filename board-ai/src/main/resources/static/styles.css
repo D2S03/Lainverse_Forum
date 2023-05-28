@@ -68,13 +68,11 @@ main {
     flex-wrap: wrap;
     justify-content: flex-start;
 }
-
 .post {
     position: relative;
     background-color: transparent;
     color: #fff;
     border-radius: 4px;
-
     width: 200px;
     margin: 20px;
     padding: 10px;
@@ -86,13 +84,13 @@ main {
     text-align: left;
     border: none;
     box-shadow: none;
-    position: relative;
-
 }
+
 .reply-button {
     position: absolute;
-    bottom: 650px;
-    right: 100px;
+    bottom: 285px;
+    right: 0;
+    margin: 10px;
 }
 
 .main {
@@ -103,6 +101,7 @@ main {
     flex-wrap: wrap;
     justify-content: flex-start;
 }
+
 
 
 .post:hover {

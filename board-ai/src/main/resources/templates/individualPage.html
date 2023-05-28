@@ -37,6 +37,19 @@
             </div>
         </section>
 
+        <section>
+            <form action="#" th:action="@{/posts/{id}/GPT_Judge(id=${post.id})}" method="POST">
+                <select name="message_id1" required>
+                    <option th:each="reply : ${replies}" th:value="${reply.id}" th:text="'replyid:0' + ${reply.id}"></option>
+                </select>
+                <select name="message_id2" required>
+                    <option th:each="reply : ${replies}" th:value="${reply.id}" th:text="'replyid:0' + ${reply.id}"></option>
+                </select>
+                <button type="submit" class="button">Judge Replies</button>
+            </form>
+        </section>
+
+
         <section id="reply-section">
             <div class="replies-container">
                 <div th:each="reply : ${replies}" class="reply">

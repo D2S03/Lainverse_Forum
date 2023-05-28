@@ -43,6 +43,11 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-devtools</artifactId>
@@ -83,12 +88,12 @@
 		<artifactId>hibernate-core</artifactId>
 		<version>6.1.7.Final</version>
 	</dependency>
-		<dependency>
-			<groupId>com.squareup.okhttp3</groupId>
-			<artifactId>okhttp-bom</artifactId>
-			<version>4.10.0</version>
-		</dependency>
 
+		<dependency>
+			<groupId>io.github.flashvayne</groupId>
+			<artifactId>chatgpt-spring-boot-starter</artifactId>
+			<version>1.0.4</version>
+		</dependency>
 	<dependency>
 	<groupId>software.amazon.awscdk</groupId>
 	<artifactId>s3-assets</artifactId>
@@ -102,6 +107,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 </project>

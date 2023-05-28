@@ -1,12 +1,13 @@
 // script.js
 function toggleReplyForm() {
     let replyForm = document.getElementById('replyForm');
-    if (replyForm.style.maxHeight !== '500px') {
-        replyForm.style.maxHeight = '500px';
+    if (replyForm.style.display === 'none') {
+        replyForm.style.display = 'block';
     } else {
-        replyForm.style.maxHeight = '0px';
+        replyForm.style.display = 'none';
     }
 }
+
 
 window.addEventListener('DOMContentLoaded', () => {
     const images = document.querySelectorAll('.image-thumbnail');
