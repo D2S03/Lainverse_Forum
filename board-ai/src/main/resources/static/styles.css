@@ -218,7 +218,8 @@ main {
 
 }
 .post-image.small-image {
-    width: 400px;
+    height: 400px;
+    width:auto;
 }
 
 .post-details {

@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/posts")
@@ -30,6 +32,7 @@ public class PostController {
     private ReplyRepository replyRepository;
 
     private ChatgptService chatgptService;
+
     @Autowired
     public PostController(PostRepository postRepository, ImgurService imgurService, ReplyRepository replyRepository, ChatgptService chatgptService) {
         this.postRepository = postRepository;
@@ -37,8 +40,6 @@ public class PostController {
         this.replyRepository = replyRepository;
         this.chatgptService = chatgptService;
     }
-
-
 
 
     @GetMapping()
@@ -58,11 +59,10 @@ public class PostController {
     }
 
 
-
     @PostMapping("/createThread")
     public String uploadThread(@RequestParam("file") MultipartFile file,
-                              @RequestParam("title") String title,
-                              @RequestParam("message") String message) {
+                               @RequestParam("title") String title,
+                               @RequestParam("message") String message) {
         try {
             File imageFile = convertMultipartFileToFile(file);
             String imageUrl = imgurService.uploadImage(imageFile);
@@ -77,6 +77,7 @@ public class PostController {
         }
         return "redirect:/posts";
     }
+
     @PostMapping("{id}/CreateReply")
     public String uploadReply(@PathVariable("id") Integer id,
                               @RequestParam("message") String message,
@@ -104,28 +105,37 @@ public class PostController {
     public String judgeGPT(@PathVariable("id") Integer id,
                            @RequestParam("message_id1") int messageId1,
                            @RequestParam("message_id2") int messageId2
-                           ){
+    ) {
+
         String message1 = replyRepository.getReferenceById(messageId1).getMessege();
         String message2 = replyRepository.getReferenceById(messageId2).getMessege();
-
+        Post Setpost = postRepository.getReferenceById(id);
+        StringBuilder titleAndContext =  new StringBuilder();
+titleAndContext.append(Setpost.getTitle());
+titleAndContext.append("/" + Setpost.getMessege());
         List<MultiChatMessage> messages = Arrays.asList(
-                new MultiChatMessage("assistant", "From the following two inputs from user1 (the first user) and user2 (the second user), I want you to decide which user is correct and only return the integer of that user."),
-                new MultiChatMessage("user",message1),
-                new MultiChatMessage("user", message2));
-        String responseMessage = chatgptService.multiChat(messages);
-Reply GPTreply = new Reply();
-Post Setpost = postRepository.getReferenceById(id);
-GPTreply.setPost(Setpost);
-GPTreply.setMessege(responseMessage);
-GPTreply.setDateTime(LocalDateTime.now());
-replyRepository.save(GPTreply);
+                new MultiChatMessage("assistant", "From the following two inputs from user1 (the first user input) and user2 (the second user input) i want you to decide which one is correct"),
+               new MultiChatMessage("user","This is the Thread Title and after the title,separate with a slash '/' is the thread comment that the thread creator added to the title.It presents the main topic of discussion" + titleAndContext),
+                new MultiChatMessage("user","user 1 = " + message1),
+                new MultiChatMessage("user", "user 2 = " + message2));
+
+    String responseMessage = chatgptService.multiChat(messages);
+    Reply GPTreply = new Reply();
+
+            GPTreply.setPost(Setpost);
+            GPTreply.setMessege(responseMessage);
+            GPTreply.setDateTime(LocalDateTime.now());
+
+        replyRepository.save(GPTreply);
 
         return "redirect:/posts/thread/" + id;
     }
 
 
 
-    private File convertMultipartFileToFile(MultipartFile file) throws IOException {
+
+
+        private File convertMultipartFileToFile(MultipartFile file) throws IOException {
         File convertedFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + file.getOriginalFilename());
         file.transferTo(convertedFile);
         return convertedFile;
