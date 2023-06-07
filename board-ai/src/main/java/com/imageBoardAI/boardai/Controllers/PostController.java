@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/posts")
@@ -116,33 +114,37 @@ public class PostController {
                            @RequestParam("message_id1") int messageId1,
                            @RequestParam("message_id2") int messageId2
     ) {
-
         String message1 = replyRepository.getReferenceById(messageId1).getMessege();
         String message2 = replyRepository.getReferenceById(messageId2).getMessege();
         Post Setpost = postRepository.getReferenceById(id);
-        StringBuilder titleAndContext =  new StringBuilder();
-titleAndContext.append(Setpost.getTitle());
-titleAndContext.append("/" + Setpost.getMessege());
-        List<MultiChatMessage> messages = Arrays.asList(
-                new MultiChatMessage("assistant", "From the following two inputs from user1 (the first user input) and user2 (the second user input) i want you to decide which one is correct"),
-               new MultiChatMessage("user","This is the Thread Title and after the title,separate with a slash '/' is the thread comment that the thread creator added to the title.It presents the main topic of discussion" + titleAndContext),
-                new MultiChatMessage("user","user 1 = " + message1),
-                new MultiChatMessage("user", "user 2 = " + message2));
-
-    String responseMessage = chatgptService.multiChat(messages);
-    Reply GPTreply = new Reply();
-            GPTreply.setAuthor("bot");
-            GPTreply.setPost(Setpost);
-            GPTreply.setMessege(responseMessage);
-            GPTreply.setDateTime(LocalDateTime.now());
-
+Reply GPTreply = createGPT(Setpost,message1,message2);
         replyRepository.save(GPTreply);
-
         return "redirect:/posts/thread/" + id;
     }
 
 
 
+
+
+
+    private Reply createGPT(Post Setpost,  String message1, String message2){
+        StringBuilder titleAndContext =  new StringBuilder();
+        titleAndContext.append(Setpost.getTitle());
+        titleAndContext.append("/" + Setpost.getMessege());
+        List<MultiChatMessage> messages = Arrays.asList(
+                new MultiChatMessage("assistant", "From the following two inputs from user1 (the first user input) and user2 (the second user input.I want you to search trough the internet and cite your sources."),
+                new MultiChatMessage("user","This is the Thread Title and after the title,separate with a slash '/' is the thread comment that the thread creator added to the title.It presents the main topic of discussion" + titleAndContext),
+                new MultiChatMessage("user","user 1 = " + message1),
+                new MultiChatMessage("user", "user 2 = " + message2));
+         String responseMessage = chatgptService.multiChat(messages);
+        Reply GPTreply = new Reply();
+        GPTreply.setAuthor("bot");
+        GPTreply.setPost(Setpost);
+        GPTreply.setMessege(responseMessage);
+        GPTreply.setDateTime(LocalDateTime.now());
+
+        return GPTreply;
+    }
 
 
         private File convertMultipartFileToFile(MultipartFile file) throws IOException {
