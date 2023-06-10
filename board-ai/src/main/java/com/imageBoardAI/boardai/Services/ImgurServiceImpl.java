@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.Map;
 
 @Service
-public class ImgurServiceImpl implements ImgurService {
+public class ImgurServiceImpl   {
     private final RestTemplate restTemplate;
     private final String imgurApiEndpoint = "https://api.imgur.com/3";
 
@@ -23,7 +23,6 @@ public class ImgurServiceImpl implements ImgurService {
         this.restTemplate = new RestTemplate();
     }
 
-    @Override
     public String uploadImage(File imageFile) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);

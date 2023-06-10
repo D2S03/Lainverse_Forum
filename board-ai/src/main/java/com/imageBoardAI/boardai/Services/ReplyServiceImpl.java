@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ReplyServiceImpl implements ReplyService{
+public class ReplyServiceImpl  {
 
 private ReplyRepository replyRepository;
 
@@ -17,23 +17,19 @@ private ReplyRepository replyRepository;
 public ReplyServiceImpl (ReplyRepository replyRepository){
     this.replyRepository = replyRepository;
 }
-    @Override
     public List<Reply> getAllReplies() {
     List<Reply> replies = replyRepository.findAll();
     return replies;
     }
 
-    @Override
     public void uploadReply(Reply uploadReply) {
 replyRepository.save(uploadReply);
     }
 
-    @Override
     public void deleteReply(int replyID) {
 replyRepository.deleteById(replyID);
     }
 
-    @Override
     public Optional<Reply> findReplyByID(int replyID) {
         Optional<Reply> reply = replyRepository.findById(replyID);
           return reply;

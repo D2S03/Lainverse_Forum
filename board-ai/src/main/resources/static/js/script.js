@@ -1,14 +1,4 @@
 // script.js
-function toggleReplyForm() {
-    let replyForm = document.getElementById('replyForm');
-    if (replyForm.style.display === 'none') {
-        replyForm.style.display = 'block';
-    } else {
-        replyForm.style.display = 'none';
-    }
-}
-
-
 window.addEventListener('DOMContentLoaded', () => {
     const images = document.querySelectorAll('.image-thumbnail');
 

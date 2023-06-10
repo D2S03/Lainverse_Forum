@@ -4,7 +4,7 @@ import com.imageBoardAI.boardai.DAO.PostRepository;
 import com.imageBoardAI.boardai.DAO.ReplyRepository;
 import com.imageBoardAI.boardai.Entety.Post;
 import com.imageBoardAI.boardai.Entety.Reply;
-import com.imageBoardAI.boardai.Services.ImgurService;
+import com.imageBoardAI.boardai.Services.ImgurServiceImpl;
 import io.github.flashvayne.chatgpt.dto.chat.MultiChatMessage;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +25,14 @@ import java.util.List;
 public class PostController {
 
     private PostRepository postRepository;
-    private final ImgurService imgurService;
+    private final ImgurServiceImpl imgurService;
 
     private ReplyRepository replyRepository;
 
     private ChatgptService chatgptService;
 
     @Autowired
-    public PostController(PostRepository postRepository, ImgurService imgurService, ReplyRepository replyRepository, ChatgptService chatgptService) {
+    public PostController(PostRepository postRepository, ImgurServiceImpl imgurService, ReplyRepository replyRepository, ChatgptService chatgptService) {
         this.postRepository = postRepository;
         this.imgurService = imgurService;
         this.replyRepository = replyRepository;
@@ -93,17 +93,7 @@ public class PostController {
             String imageUrl = imgurService.uploadImage(imageFile);
             reply.setImageUrl(imageUrl);
         }
-        if (message.contains("bot")) {
-            reply.setAuthor("bot");
-        } else {
-            reply.setAuthor("user");
-        }
-
-        if (file != null && !file.isEmpty()) {
-            File imageFile = convertMultipartFileToFile(file);
-            String imageUrl = imgurService.uploadImage(imageFile);
-            reply.setImageUrl(imageUrl);
-        }
+        isBot(message,reply);
         replyRepository.save(reply);
 
         return "redirect:/posts/thread/" + id;
@@ -124,7 +114,13 @@ Reply GPTreply = createGPT(Setpost,message1,message2);
 
 
 
-
+private void isBot(String message,Reply reply) {
+    if (message.contains("bot")) {
+        reply.setAuthor("bot");
+    } else {
+        reply.setAuthor("user");
+    }
+}
 
 
     private Reply createGPT(Post Setpost,  String message1, String message2){
@@ -158,6 +154,5 @@ Reply GPTreply = createGPT(Setpost,message1,message2);
 }
 
 
-//make the thread name into a button where when you click it chatgpt generates a short explanation about the material
-    //integrate reverse image search.
+
 
