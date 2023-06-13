@@ -23,13 +23,12 @@
                 </div>
                 <p th:text="${post.messege}" class="post-message"></p>
             </header>
-            <div class="post-content">
-            </div>
+            <div class="post-content"></div>
             <div class="reply-button">
                 <button id="replyBtn" class="button" onclick="toggleReplyForm()">Reply</button>
-                <div id="replyForm">
+                <div id="replyForm" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out;">
                     <form action="#" th:action="@{/posts/{id}/CreateReply(id=${post.id})}" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="message" placeholder="Message" required><br>
+                        <textarea name="message" rows="5" placeholder="Message" required></textarea><br>
                         <input type="file" name="file" accept="image/*"><br>
                         <button type="submit" class="button">Submit</button>
                     </form>
@@ -108,8 +107,5 @@
         }
     }
 </script>
-
-
 </body>
-
 </html>

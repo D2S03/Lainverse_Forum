@@ -1,9 +1,14 @@
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
     margin: 0;
     padding: 0;
-}.red-text {
-     color: red;
+    color: #ffffff;
+}
+.post-id {
+    color: rgb(106, 77, 177);
  }
+.red-text{
+    color: red;
+}
 
 body {
     font-family: Arial, sans-serif;
@@ -13,10 +18,12 @@ body {
 header {
     background-color: #111111;
     padding: 10px;
-    border-bottom: 1px solid #222222;
     display: flex;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+
 .transparent-border {
     border: 1px solid rgba(0, 0, 0, 0.5);
     padding: 5px;
@@ -88,9 +95,9 @@ main {
 
 .reply-button {
     position: absolute;
-    bottom: 255px;
+    bottom: 405px;
     right: 0;
-    margin: 10px;
+    margin: 100px;
 }
 
 .main {
@@ -102,18 +109,9 @@ main {
     justify-content: flex-start;
 }
 
-
-
 .post:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 }
-
-.post-details .post-id {
-    color: rgb(106, 77, 177);
-}
-
-
-
 
 .post .post-image {
     max-width: 200px;
@@ -250,7 +248,9 @@ main {
     position: relative !important;
     right: initial !important;
 }
-
+p.reply-message {
+    color: #ffffff;
+}
 
 .reply-details span {
     color: rgb(106, 77, 177);
@@ -358,6 +358,7 @@ display: flex;
     transition: background-color 0.3s ease;
 }
 
+
 .button:hover {
     background-color: #252225;
 }
@@ -418,6 +419,37 @@ display: flex;
     opacity: 1;
 }
 
+.enlarged-image-overlay img.enlarged-image {
+    max-width: 90%;
+    max-height: 90%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.enlarged-image-overlay.show img.enlarged-image {
+    opacity: 1;
+}
+
+.enlarged-image-overlay .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 24px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.enlarged-image-overlay .close-btn:hover {
+    transform: scale(1.1);
+}
+
+.enlarged-image-overlay .close-btn:focus {
+    outline: none;
+}
 .enlarged-image-container {
     position: relative;
     max-width: 80vw;
@@ -433,5 +465,4 @@ display: flex;
 
 .bot-reply p.reply-message {
     color: #00ff00;
-    text-shadow: 0 0 01px #00ff00;
 }
