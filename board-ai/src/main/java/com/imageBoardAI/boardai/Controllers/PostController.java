@@ -44,7 +44,7 @@ public class PostController {
     public String getAllPosts(Model model) {
         List<Post> thePostsList = postRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("posts", thePostsList);
-        return "testFile";
+        return "cataloguePage";
     }
 
     @GetMapping("/thread/{id}")
