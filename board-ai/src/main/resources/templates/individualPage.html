@@ -38,10 +38,10 @@
 
         <section>
             <form action="#" th:action="@{/posts/{id}/GPT_Judge(id=${post.id})}" method="POST">
-                <select name="message_id1" required>
+                <select name="message_id1" required class="custom-select">
                     <option th:each="reply : ${replies}" th:value="${reply.id}" th:text="'replyid:0' + ${reply.id}"></option>
                 </select>
-                <select name="message_id2" required>
+                <select name="message_id2" required class="custom-select">
                     <option th:each="reply : ${replies}" th:value="${reply.id}" th:text="'replyid:0' + ${reply.id}"></option>
                 </select>
                 <button type="submit" class="button">Judge Replies</button>
@@ -56,7 +56,8 @@
                         <span th:text="'' + ${reply.dateTime}"></span>
                     </div>
                     <div class="reply-content" th:classappend="${reply.author == 'bot' ? 'bot-reply' : ''}">
-                        <p th:text="${reply.messege}" th:style="${reply.author == 'bot' ? 'color: green' : ''}" class="reply-message"></p>
+                        <h4 class="bot-heading" th:if="${reply.author == 'bot'}">~~~bot generated reply~~~</h4>
+                        <p th:text="${reply.messege}" class="reply-message"></p>
                         <img th:if="${reply.imageUrl}" th:src="${reply.imageUrl}" alt="Reply Image" class="reply-image small-image image-thumbnail">
                         <span th:unless="${reply.imageUrl}"></span>
                     </div>

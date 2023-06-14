@@ -4,7 +4,7 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
     color: #ffffff;
 }
 .post-id {
-    color: rgb(106, 77, 177);
+    color: rgb(107 77 177);
  }
 .red-text{
     color: red;
@@ -12,15 +12,21 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #050505;
-}
+    background-color: #100f0f;
 
+}
+.main-page-header {
+    border: 1px solid #100f0f;
+
+    background-color: transparent;
+}
 header {
-    background-color: #111111;
+
     padding: 10px;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(107, 77, 177, 0.35);
+
 }
 
 
@@ -90,7 +96,7 @@ main {
     align-items: flex-start;
     text-align: left;
     border: none;
-    box-shadow: none;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.6);
 }
 
 .reply-button {
@@ -221,11 +227,11 @@ main {
 }
 
 .post-details {
-    background-color: transparent;
+    background-color: rgb(101 64 190 / 5%);
 }
 
 .thread {
-    background-color: #000;
+    background-color: #100f0f;
 }
 
 
@@ -239,7 +245,7 @@ main {
 
 
 .reply {
-    border: 1px solid #ccc;
+    border: 1px solid rgb(107 77 177 / 35%);
     padding: 30px;
     margin-bottom: 20px;
     max-width: 600px;
@@ -464,5 +470,9 @@ display: flex;
 
 
 .bot-reply p.reply-message {
-    color: #00ff00;
+    color: rgb(107 77 177);
+}
+.custom-select {
+    background-color: #111111;
+    color: #ffffff;
 }

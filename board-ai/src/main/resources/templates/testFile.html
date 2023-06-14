@@ -30,8 +30,8 @@
 
 <main class="main">
     <section th:each="post : ${posts}" class="post">
-        <header>
-            <span th:text="${#temporals.format(post.getDateTime(), 'dd MMM yyyy, HH:mm')}+ 'ㅤ'"></span>
+        <header class="main-page-header">
+        <span th:text="${#temporals.format(post.getDateTime(), 'dd MMM yyyy, HH:mm')}+ 'ㅤ'"></span>
             <span th:text="' POST ID:0'+${post.getId() * 4}" class="red-text"></span>
         </header>
         <div class="post-content">
