@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ReplyServiceImpl  {
+public class ReplyService {
 
 private ReplyRepository replyRepository;
 
 @Autowired
-public ReplyServiceImpl (ReplyRepository replyRepository){
+public ReplyService(ReplyRepository replyRepository){
     this.replyRepository = replyRepository;
 }
     public List<Reply> getAllReplies() {

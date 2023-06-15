@@ -1,55 +1,50 @@
 package com.imageBoardAI.boardai.Controllers;
 
-import com.imageBoardAI.boardai.DAO.PostRepository;
-import com.imageBoardAI.boardai.DAO.ReplyRepository;
 import com.imageBoardAI.boardai.Entety.Post;
 import com.imageBoardAI.boardai.Entety.Reply;
-import com.imageBoardAI.boardai.Services.ImgurServiceImpl;
+import com.imageBoardAI.boardai.Services.ImgurService;
+import com.imageBoardAI.boardai.Services.PostService;
+import com.imageBoardAI.boardai.Services.ReplyService;
 import io.github.flashvayne.chatgpt.dto.chat.MultiChatMessage;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/posts")
 public class PostController {
-
-    private PostRepository postRepository;
-    private final ImgurServiceImpl imgurService;
-
-    private ReplyRepository replyRepository;
-
+    private final ImgurService imgurService;
+    private PostService postService;
     private ChatgptService chatgptService;
+    private ReplyService replyService;
 
     @Autowired
-    public PostController(PostRepository postRepository, ImgurServiceImpl imgurService, ReplyRepository replyRepository, ChatgptService chatgptService) {
-        this.postRepository = postRepository;
+    public PostController(ImgurService imgurService, PostService postService, ChatgptService chatgptService, ReplyService replyService) {
         this.imgurService = imgurService;
-        this.replyRepository = replyRepository;
+        this.postService = postService;
         this.chatgptService = chatgptService;
+        this.replyService = replyService;
     }
-
 
     @GetMapping()
     public String getAllPosts(Model model) {
-        List<Post> thePostsList = postRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<Post> thePostsList = postService.getAllPosts();
         model.addAttribute("posts", thePostsList);
         return "cataloguePage";
     }
 
     @GetMapping("/thread/{id}")
     public String getThreadPage(@PathVariable("id") int id, Model model) {
-        Post post = postRepository.getReferenceById(id);
+        Post post = postService.findPostByID(id);
         List<Reply> replies = post.getReplies();
         model.addAttribute("post", post);
         model.addAttribute("replies", replies);
@@ -69,7 +64,7 @@ public class PostController {
             post.setTitle(title);
             post.setMessege(message);
             post.setDateTime(LocalDateTime.now());
-            postRepository.save(post);
+            postService.uploadPost(post);
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload image and create thread", e);
         }
@@ -81,7 +76,7 @@ public class PostController {
                               @RequestParam("message") String message,
                               @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
-        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+        Post post = postService.findPostByID(id);
 
         Reply reply = new Reply();
         reply.setMessege(message);
@@ -93,8 +88,8 @@ public class PostController {
             String imageUrl = imgurService.uploadImage(imageFile);
             reply.setImageUrl(imageUrl);
         }
-        isBot(message,reply);
-        replyRepository.save(reply);
+        isBot(message, reply);
+        replyService.uploadReply(reply);
 
         return "redirect:/posts/thread/" + id;
     }
@@ -104,35 +99,37 @@ public class PostController {
                            @RequestParam("message_id1") int messageId1,
                            @RequestParam("message_id2") int messageId2
     ) {
-        String message1 = replyRepository.getReferenceById(messageId1).getMessege();
-        String message2 = replyRepository.getReferenceById(messageId2).getMessege();
-        Post Setpost = postRepository.getReferenceById(id);
-Reply GPTreply = createGPT(Setpost,message1,message2);
-        replyRepository.save(GPTreply);
+        Optional<Reply> reply1 = replyService.findReplyByID(messageId1);
+        Optional<Reply> reply2 = replyService.findReplyByID(messageId2);
+
+        String message1 = reply1.get().getMessege();
+        String message2 = reply2.get().getMessege();
+        Post Setpost = postService.findPostByID(id);
+        Reply GPTreply = createGPT(Setpost, message1, message2);
+        replyService.uploadReply(GPTreply);
         return "redirect:/posts/thread/" + id;
     }
 
 
-
-private void isBot(String message,Reply reply) {
-    if (message.contains("bot")) {
-        reply.setAuthor("bot");
-    } else {
-        reply.setAuthor("user");
+    private void isBot(String message, Reply reply) {
+        if (message.contains("bot")) {
+            reply.setAuthor("bot");
+        } else {
+            reply.setAuthor("user");
+        }
     }
-}
 
 
-    private Reply createGPT(Post Setpost,  String message1, String message2){
-        StringBuilder titleAndContext =  new StringBuilder();
+    private Reply createGPT(Post Setpost, String message1, String message2) {
+        StringBuilder titleAndContext = new StringBuilder();
         titleAndContext.append(Setpost.getTitle());
         titleAndContext.append("/" + Setpost.getMessege());
         List<MultiChatMessage> messages = Arrays.asList(
                 new MultiChatMessage("assistant", "From the following two inputs from user1 (the first user input) and user2 (the second user input.I want you to search trough the internet and cite your sources."),
-                new MultiChatMessage("user","This is the Thread Title and after the title,separate with a slash '/' is the thread comment that the thread creator added to the title.It presents the main topic of discussion" + titleAndContext),
-                new MultiChatMessage("user","user 1 = " + message1),
+                new MultiChatMessage("user", "This is the Thread Title and after the title,separate with a slash '/' is the thread comment that the thread creator added to the title.It presents the main topic of discussion" + titleAndContext),
+                new MultiChatMessage("user", "user 1 = " + message1),
                 new MultiChatMessage("user", "user 2 = " + message2));
-         String responseMessage = chatgptService.multiChat(messages);
+        String responseMessage = chatgptService.multiChat(messages);
         Reply GPTreply = new Reply();
         GPTreply.setAuthor("bot");
         GPTreply.setPost(Setpost);
@@ -142,15 +139,11 @@ private void isBot(String message,Reply reply) {
         return GPTreply;
     }
 
-
-        private File convertMultipartFileToFile(MultipartFile file) throws IOException {
+    private File convertMultipartFileToFile(MultipartFile file) throws IOException {
         File convertedFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + file.getOriginalFilename());
         file.transferTo(convertedFile);
         return convertedFile;
     }
-
-
-
 }
 
 

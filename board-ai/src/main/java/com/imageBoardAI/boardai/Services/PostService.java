@@ -3,21 +3,22 @@ package com.imageBoardAI.boardai.Services;
 import com.imageBoardAI.boardai.DAO.PostRepository;
 import com.imageBoardAI.boardai.Entety.Post;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class PostServiceImpl{
+public class PostService {
 private PostRepository postRepository;
 
 @Autowired
-public PostServiceImpl(PostRepository postRepository) {
+public PostService(PostRepository postRepository) {
     this.postRepository = postRepository;
 }
 
 
     public List<Post> getAllPosts() {
-       List<Post> posts = postRepository.findAll();
+       List<Post> posts = postRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
        return posts;
     }
 

@@ -12,14 +12,14 @@ import java.io.File;
 import java.util.Map;
 
 @Service
-public class ImgurServiceImpl   {
+public class ImgurService {
     private final RestTemplate restTemplate;
     private final String imgurApiEndpoint = "https://api.imgur.com/3";
 
     @Value("${imgur.clientId}")
     private String clientId;
 
-    public ImgurServiceImpl() {
+    public ImgurService() {
         this.restTemplate = new RestTemplate();
     }
 
