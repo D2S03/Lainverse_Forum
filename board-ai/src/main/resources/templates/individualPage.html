@@ -10,9 +10,10 @@
     </a>
 </header>
 
+
 <main>
     <div class="thread-container">
-        <section class="thread">
+        <section class="thread" style="width: 1100px; height: 340px;">
             <div class="post-details">
                 <h2 th:text="${post.title}"></h2>
                 <h3 class="post-id" th:text="'postid:0' + ${post.id} * 4"></h3>
@@ -23,7 +24,6 @@
                 </div>
                 <p th:text="${post.messege}" class="post-message"></p>
             </header>
-            <div class="post-content"></div>
             <div class="reply-button">
                 <button id="replyBtn" class="button" onclick="toggleReplyForm()">Create Reply</button>
                 <div id="replyForm" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out;">
@@ -69,6 +69,7 @@
 </main>
 
 <script>
+    // Enlarge image on click
     window.addEventListener('DOMContentLoaded', () => {
         const images = document.querySelectorAll('.image-thumbnail');
 
@@ -98,8 +99,8 @@
         });
     });
 
-
     function toggleReplyForm() {
+        //creates the reply buttons drop down form
         let replyForm = document.getElementById('replyForm');
         if (replyForm.style.maxHeight !== '500px') {
             replyForm.style.maxHeight = '500px';
