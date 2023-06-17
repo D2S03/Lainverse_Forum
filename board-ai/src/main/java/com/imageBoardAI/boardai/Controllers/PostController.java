@@ -103,8 +103,8 @@ public class PostController {
         Optional<Reply> reply1 = replyService.findReplyByID(messageId1);
         Optional<Reply> reply2 = replyService.findReplyByID(messageId2);
 
-        String message1 = reply1.get().getMessege();
-        String message2 = reply2.get().getMessege();
+        String message1 = "reply1 ID ->" + reply1.get().getId() + "// reply1 message content->" + reply1.get().getMessege();
+        String message2 = "reply2 ID ->" + reply2.get().getId() + "// reply2 message content->" + reply2.get().getMessege();
         Post Setpost = postService.findPostByID(id);
         Reply GPTreply = createGPT(Setpost, message1, message2);
         replyService.uploadReply(GPTreply);
@@ -128,7 +128,7 @@ public class PostController {
         titleAndContext.append(Setpost.getTitle());
         titleAndContext.append("/" + Setpost.getMessege());
         List<MultiChatMessage> messages = Arrays.asList(
-                new MultiChatMessage("assistant", "From the following two inputs from user1 (the first user input) and user2 (the second user input.I want you to search trough the internet and cite your sources."),
+                new MultiChatMessage("assistant", "Begin your reply by stating the two input messages IDs' (example: responce to user1(ID:143) and user2(ID:145))From the following two inputs from user1 (the first user input) and user2 (the second user input.I want you to search trough the internet and cite your sources. Do not go above 800 characters.Also when you cite the sources,divide them with //. And also this is going as a reply to a forum post so format it as such."),
                 new MultiChatMessage("user", "This is the Thread Title and after the title,separate with a slash '/' is the thread comment that the thread creator added to the title.It presents the main topic of discussion" + titleAndContext),
                 new MultiChatMessage("user", "user 1 = " + message1),
                 new MultiChatMessage("user", "user 2 = " + message2));
