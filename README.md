@@ -17,6 +17,12 @@ This allows for a more streamlined discussion of topics, ranging from history to
 
 <img width="881" alt="Screenshot_2023-06-17_at_22 18 48" src="https://github.com/D2S03/LainVerse_imageBoard/assets/94651035/d3e5eb82-67f3-43e7-a419-9eada6663bbb">
 
+# Mappings
+
+/posts - displays the post catalogue.
+
+/posts/thread/{id} - navigates to a specific thread.
+
 # Technology used
 <img src="https://github.com/D2S03/LainVerse_imageBoard/assets/94651035/d11911a7-ab9c-4925-a40c-720e608e4b36" width="100">
 
