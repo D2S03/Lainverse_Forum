@@ -52,7 +52,7 @@
             <div class="replies-container">
                 <div th:each="reply : ${replies}" class="reply">
                   <div class="reply-details">
-                        <span th:text="'replyid:0' + ${reply.id}"></span>
+                        <span th:text="'replyid:' + ${reply.id}"></span>
                         <span th:text="' | ' + ${#temporals.format(reply.dateTime, 'HH:mm:ss')}"></span>
                     </div>
                     <div class="reply-content" th:classappend="${reply.author == 'bot' ? 'bot-reply' : ''}">
