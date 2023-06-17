@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 
+
 <body>
 <header class="transparent-border">
     <a href="/posts">
@@ -36,7 +37,7 @@
         </header>
         <div class="post-content">
             <img th:src="${post.getImageURL()}" alt="Image" class="post-image">
-            <p th:text="${post.getMessege()}"></p>
+            <p th:text="${post.getTitle()}"></p>
         </div>
         <footer>
             <a th:href="@{'/posts/thread/' + ${post.getId()}}">
@@ -47,11 +48,9 @@
 </main>
 
 
-
-<script src="/script.js"></script>
-
 <script th:inline="javascript">
     function toggleForm() {
+        // creates the drop-down form for creating a new thread
         let threadForm = document.getElementById('threadForm');
         if (threadForm.style.maxHeight !== '500px') {
             threadForm.style.maxHeight = '500px';
