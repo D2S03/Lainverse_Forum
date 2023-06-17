@@ -22,7 +22,7 @@ public class ImgurService {
     public ImgurService() {
         this.restTemplate = new RestTemplate();
     }
-
+//uploads images to imgur and return the link to the image to be saved in the database as a string.
     public String uploadImage(File imageFile) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
