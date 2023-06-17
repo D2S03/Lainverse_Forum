@@ -9,7 +9,6 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
 .red-text{
     color: red;
 }
-
 body {
     font-family: Arial, sans-serif;
     background-color: #100f0f;
@@ -93,27 +92,21 @@ main {
     float: left;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     text-align: left;
     border: none;
     box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.6);
 }
 
 .reply-button {
-    position: absolute;
-    bottom: 323px;
-    right: 600px;
-    margin: 100px;
+    position: relative;
+    bottom: -19px;
+    right: -985px;
+    z-index: 999;
+    display: flex;
+    text-align: center;
 }
 
-.main {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
+
 
 .post:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
@@ -173,7 +166,10 @@ main {
 
 
 .post .post-image {
-    max-width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 184px;
     max-height: 200px;
     object-fit: cover;
 }
@@ -194,9 +190,7 @@ main {
     bottom: 0;
     width: 100%;
 }
-.reply-button {
-    text-align: center;
-}
+
 .post footer .reply-btn:hover {
     transform: scale(1.1);
 }
@@ -257,6 +251,7 @@ main {
 p.reply-message {
     color: #ffffff;
 }
+
 
 .reply-details span {
     color: rgb(106, 77, 177);
@@ -348,10 +343,7 @@ display: flex;
     overflow: hidden;
     transition: max-height 0.5s ease-out;
 }
-.reply-button {
-    display: flex;
-    justify-content: flex-end;
-}
+
 
 .button {
     background-color: #000000;
@@ -374,10 +366,21 @@ display: flex;
 }
 
 #replyForm {
+    position: absolute;
+    top: 140%;
+    left: -44%;
+    width: 100%;
+    transform: translateY(0);
+    transition: transform 0.5s ease-out, max-height 0s ease-out 0.5s;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-out;
+
 }
+#replyForm form input[type="file"] {
+    margin-left: 80px;
+}
+
+
 .overlay {
     position: fixed;
     top: 0;
@@ -473,6 +476,9 @@ display: flex;
     color: rgb(107 77 177);
 }
 .custom-select {
-    background-color: #111111;
+    padding: 6px 9px;
+    font-size: 14px;
+    background-color: transparent;
     color: #ffffff;
+    border: 2px solid #302548;
 }
