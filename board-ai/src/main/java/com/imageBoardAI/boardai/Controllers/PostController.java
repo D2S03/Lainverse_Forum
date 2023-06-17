@@ -57,6 +57,7 @@ public class PostController {
                                @RequestParam("title") String title,
                                @RequestParam("message") String message) {
         try {
+            // Convert MultipartFile to File and uploads the image to imgur.Then saves the imageURL and other data to the database.
             File imageFile = convertMultipartFileToFile(file);
             String imageUrl = imgurService.uploadImage(imageFile);
             Post post = new Post();
@@ -112,6 +113,7 @@ public class PostController {
 
 
     private void isBot(String message, Reply reply) {
+        //this function sets the "author" field to bot or user,depending no wether the messege is written by GPT or is a human reply.This is later used to determine the post texts' color.
         if (message.contains("bot")) {
             reply.setAuthor("bot");
         } else {
@@ -121,6 +123,7 @@ public class PostController {
 
 
     private Reply createGPT(Post Setpost, String message1, String message2) {
+        //Takes in the title and messages for the GPT to use by getting them from the post and then adding the messages to the MultiChatMessage list for ChatGPT to process,alongside the necessary context.
         StringBuilder titleAndContext = new StringBuilder();
         titleAndContext.append(Setpost.getTitle());
         titleAndContext.append("/" + Setpost.getMessege());
@@ -131,6 +134,7 @@ public class PostController {
                 new MultiChatMessage("user", "user 2 = " + message2));
         String responseMessage = chatgptService.multiChat(messages);
         Reply GPTreply = new Reply();
+        //finally it sets the details to a reply and posts it.
         GPTreply.setAuthor("bot");
         GPTreply.setPost(Setpost);
         GPTreply.setMessege(responseMessage);
@@ -140,9 +144,11 @@ public class PostController {
     }
 
     private File convertMultipartFileToFile(MultipartFile file) throws IOException {
+        // Create a File object with a unique name in the temporary directory
         File convertedFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + file.getOriginalFilename());
         file.transferTo(convertedFile);
         return convertedFile;
+        //Converts a MultipartFile to a File object
     }
 }
 
