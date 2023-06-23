@@ -1,5 +1,5 @@
 # LainVerse
-Lainverse is an imageboard that leverages OpenAI's ChatGPT for an enhanced user interaction. Lainverse functions like any other imageboard, with the ability to create posts with images, replies with images and added GPT functionality.
+Lainverse gives the user the ability to create posts with images, replies with images and added GPT functionality.
 
 ![Screenshot_2023-06-17_at_22 15 39](https://github.com/D2S03/LainVerse_imageBoard/assets/94651035/78ab339d-e26e-461f-87ee-a1f5a39dacdd)
 # Features:
