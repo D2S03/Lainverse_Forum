@@ -57,8 +57,9 @@ public class PostController {
                                @RequestParam("title") String title,
                                @RequestParam("message") String message) {
         try {
-            // Convert MultipartFile to File and uploads the image to imgur.Then saves the imageURL and other data to the database.
+            // Convert MultipartFile to File and uploads the image to imgur.
             File imageFile = convertMultipartFileToFile(file);
+            //Saves the imageURL and other data to the database.
             String imageUrl = imgurService.uploadImage(imageFile);
             Post post = new Post();
             post.setImageURL(imageUrl);
@@ -67,7 +68,7 @@ public class PostController {
             post.setDateTime(LocalDateTime.now());
             postService.uploadPost(post);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to upload image and create thread", e);
+            throw new RuntimeException("Thread creation was unsuccessful", e);
         }
         return "redirect:/posts";
     }
@@ -100,9 +101,10 @@ public class PostController {
                            @RequestParam("message_id1") int messageId1,
                            @RequestParam("message_id2") int messageId2
     ) {
+        //Locates the two messages if they exist.
         Optional<Reply> reply1 = replyService.findReplyByID(messageId1);
         Optional<Reply> reply2 = replyService.findReplyByID(messageId2);
-
+        //Appends the message strings with a string indicating their IDs' so that the GPT can later utilise it in its' responce.
         String message1 = "reply1 ID ->" + reply1.get().getId() + "// reply1 message content->" + reply1.get().getMessege();
         String message2 = "reply2 ID ->" + reply2.get().getId() + "// reply2 message content->" + reply2.get().getMessege();
         Post Setpost = postService.findPostByID(id);
@@ -113,7 +115,8 @@ public class PostController {
 
 
     private void isBot(String message, Reply reply) {
-        //this function sets the "author" field to bot or user,depending no wether the messege is written by GPT or is a human reply.This is later used to determine the post texts' color.
+        //this function sets the "author" field to bot or user,depending no wether the messege is written by GPT or is a human reply.
+        //This is later used to determine the post texts' color.
         if (message.contains("bot")) {
             reply.setAuthor("bot");
         } else {
