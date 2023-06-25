@@ -34,7 +34,6 @@ public class PostController {
         this.chatgptService = chatgptService;
         this.replyService = replyService;
     }
-
     @GetMapping()
     public String getAllPosts(Model model) {
         List<Post> thePostsList = postService.getAllPosts();
@@ -104,9 +103,9 @@ public class PostController {
         //Locates the two messages if they exist.
         Optional<Reply> reply1 = replyService.findReplyByID(messageId1);
         Optional<Reply> reply2 = replyService.findReplyByID(messageId2);
-        //Appends the message strings with a string indicating their IDs' so that the GPT can later utilise it in its' responce.
-        String message1 = "reply1 ID ->" + reply1.get().getId() + "// reply1 message content->" + reply1.get().getMessege();
-        String message2 = "reply2 ID ->" + reply2.get().getId() + "// reply2 message content->" + reply2.get().getMessege();
+        //Appends the message strings with a string indicating their IDs' so that the GPT can later utilise it in its response.
+        String message1 = "reply1 ID ->" + reply1.get().getId() + "|| reply1 message content->" + reply1.get().getMessege();
+        String message2 = "reply2 ID ->" + reply2.get().getId() + "|| reply2 message content->" + reply2.get().getMessege();
         Post Setpost = postService.findPostByID(id);
         Reply GPTreply = createGPT(Setpost, message1, message2);
         replyService.uploadReply(GPTreply);
@@ -115,7 +114,7 @@ public class PostController {
 
 
     private void isBot(String message, Reply reply) {
-        //this function sets the "author" field to bot or user,depending no wether the messege is written by GPT or is a human reply.
+        //this function sets the "author" field to bot or user,depending on weather the message is written by GPT or is a human reply.
         //This is later used to determine the post texts' color.
         if (message.contains("bot")) {
             reply.setAuthor("bot");
