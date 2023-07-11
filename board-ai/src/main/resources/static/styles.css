@@ -145,7 +145,7 @@ main {
 .post .post-content {
     margin-left: 10px;
     color: #ffffff;
-
+    overflow-wrap: break-word;
 }
 .post-content img {
     max-width: 100%;
