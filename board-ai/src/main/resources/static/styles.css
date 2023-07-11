@@ -6,8 +6,8 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
 .post-id {
     color: rgb(107 77 177);
  }
-.red-text{
-    color: red;
+.purple-text{
+    color: mediumpurple;
 }
 body {
     font-family: Arial, sans-serif;
@@ -252,7 +252,12 @@ p.reply-message {
     color: #ffffff;
 }
 
-
+.errorMapping{
+    color:mediumpurple;
+    font-size: 25px;
+    margin-left: 415px;
+    margin-top: 354px;
+}
 .reply-details span {
     color: rgb(106, 77, 177);
 }

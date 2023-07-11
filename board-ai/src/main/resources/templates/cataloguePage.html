@@ -33,7 +33,7 @@
     <section th:each="post : ${posts}" class="post">
         <header class="main-page-header">
         <span th:text="${#temporals.format(post.getDateTime(), 'dd MMM yyyy, HH:mm')}+ 'ㅤ'"></span>
-            <span th:text="' POST ID:0'+${post.getId() * 4}" class="red-text"></span>
+            <span th:text="' POST ID:0'+${post.getId() * 4}" class="purple-text"></span>
         </header>
         <div class="post-content">
             <img th:src="${post.getImageURL()}" alt="Image" class="post-image">
